@@ -11,12 +11,21 @@ directory 'target'
 directory 'lib/lzf-fast'
 
 task :cargo_build do
+  if DLEXT == "bundle"
+    sh "sed 's/cdylib/staticlib/' -i Cargo.toml"
+  end
   sh "cargo build --release"
 end
 CLEAN.include('target')
 
+if DLEXT == "bundle"
+  file NATIVE_LIB => ['lib/lzf_fast', :cargo_build] do
+    sh "gcc -Wl,-force_load,target/release/liblzf_fast.a --shared -Wl,-undefined,dynamic_lookup -o #{NATIVE_LIB}"
+  end
+else
 file NATIVE_LIB => ['lib/lzf_fast', :cargo_build] do
   sh "cp target/release/liblzf_fast.#{DLEXT} #{NATIVE_LIB}"
+end
 end
 CLOBBER.include(NATIVE_LIB)
 

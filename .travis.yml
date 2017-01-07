@@ -1,6 +1,10 @@
 language: rust
 sudo: false
 
+os:
+  - linux
+  - osx
+
 rust:
   - stable
 
