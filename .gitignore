@@ -1,0 +1,4 @@
+target
+*.bundle
+*.gem
+*.so
