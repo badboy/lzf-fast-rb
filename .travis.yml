@@ -1,0 +1,10 @@
+language: rust
+sudo: false
+
+rust:
+  - stable
+
+script:
+    - gem install bundler
+    - bundle install
+    - bundle exec rake
