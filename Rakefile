@@ -12,7 +12,7 @@ directory 'lib/lzf-fast'
 
 task :cargo_build do
   if DLEXT == "bundle"
-    sh "sed 's/cdylib/staticlib/' -i.bak Cargo.toml"
+    sh "sed -i.bak 's/cdylib/staticlib/' Cargo.toml"
   end
   sh "cargo build --release"
 end
